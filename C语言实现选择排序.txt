@@ -1,0 +1,16 @@
+void selectSort(int array[],int len)//每次遍历把最小的选出来，放在前面
+{
+int i,j,temp,index;
+for(i = 0;i < len-1;i++)//从第一个开始放置最小的元素
+{
+	index = i;//index标识最小的数，先标记为i
+	for(j = i+1;j < len;j++)//将第i个数后面的数与第i个数比较
+	{
+	    if(a[j] < a[index])
+		index = j;
+	}
+	temp = array[k];//循环结束后，交换两个值
+	array[k] = array[i];
+	array[i] = temp;
+}
+}

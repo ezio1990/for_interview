@@ -1,0 +1,30 @@
+//汉诺塔问题
+
+#include "stdafx.h"
+
+void move(char x, char y)
+{
+	printf("%c --> %c\n", x, y);
+}
+
+void hanoi(int n,char A,char B,char C)
+{
+	if (1 == n) //只有1个塔的时候
+		move(A, C);
+	else //大于等于2个时，则产生递归，比如有3个的时候，先将上面两个移动到B（借助C）（此处递归2个时的方法），然后把最大的那个
+	//移动到C，再把B上的2个移动到C（借助A，递归2个时的方法）。
+	{
+		hanoi(n - 1, A, C, B);
+		move(A, C);
+		hanoi(n - 1, B, A, C);
+	}
+}
+
+int main()
+{
+	char one = 'A';
+	char two = 'B';
+	char three = 'C';//以后改进一下，别这么low.
+	hanoi(10,one,two,three);
+	return 0;
+}

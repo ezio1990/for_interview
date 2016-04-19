@@ -1,0 +1,19 @@
+void insertSort(int a[], int len)
+{
+int i, j,temp;
+for(i = 1;i < len;i++)//从第二个数a[1]开始，一个个插入
+{
+	temp = a[i];
+	if(temp < a[i-1])//如果插入的比前面排好的最大的还大
+	{
+		for(j = i-1;j >= 0;j--)//开始插入，并移位
+		{
+			if(temp < a[j])
+				a[j+1] = a[j];
+			else
+				break;
+		}
+		a[j+1] = temp;
+	}
+}
+}

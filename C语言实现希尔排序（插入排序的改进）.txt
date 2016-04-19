@@ -1,0 +1,21 @@
+void shellSort(int a[],int len)
+{
+int i,j,d,temp;
+for(d = len/2;d >= 1;d = d/2)//d是增量，逐渐减小
+{	
+	for(i = d;i < len;i++)//注意是i++，不是i+=d，d个后的每一个都要遍历到
+	{	temp = a[i];
+	if(temp < a[i-d])//都要以d为间距
+	{
+		for(j = i-d;j >= 0;j-=d)
+		{
+			if(temp < a[j])
+				a[j+d] = a[j];
+			else
+				break;
+		}
+		a[j+d] = temp;
+	}
+	}
+}
+}

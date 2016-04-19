@@ -1,0 +1,63 @@
+// ConsoleApplication2.cpp : 定义控制台应用程序的入口点。
+//递归新领悟：简单的例子，如斐波那契数列，通过具体一个例子来撰写递归，如n=1,n=2,n=3,n=5...的情况。
+//本例是应用递归实现回溯法，通过不满足边界条件（即if语句）时跳回上一层调用。
+
+#include "stdafx.h"
+
+int chess[8][8] = { 0 };
+int a[8], b[15], c[15];//用于判断放置的皇后是否合法的辅助数组
+int sum = 0;//sum表示结果个数
+
+void PutQueen(int n)//放置第n+1个皇后  
+{
+	int col, i, j;
+	for (col = 0; col < 8; col++)//这个for循环加的厉害
+	{
+		if (a[col] && b[n + col] && c[n - col + 7])//a[8]判定列冲突，b[15]判定斜对角线冲突，c[15]判定对角线冲突，值为1表示这个位置合法
+		{
+			chess[n][col] = 1;//如果合法，放置皇后 
+			a[col] = 0;
+			b[n + col] = 0;
+			c[n - col + 7] = 0;
+			if (n == 7)
+			{
+				sum++;
+				printf("第%d种可能的摆法:\n", sum); //输出皇后摆法  
+				for (i = 0; i < 8; i++) {
+					printf("\t\t");
+					for (j = 0; j < 8; j++)
+						printf("%d ", chess[i][j]);
+					printf("\n");
+				}
+				printf("\n");
+				if (sum % 2 == 0)//每输出2种结果暂停一下  
+				{
+					printf("按回车键继续……");
+					getchar();
+				}
+			}
+			else
+				PutQueen(n + 1);//递归下一个  
+			chess[n][col] = 0;//此处算是退回，如n=4时，递归到n=5，此时不能再放置皇后，n=5就执行完毕，然后回到n=4，具体是会到这一行
+			//然后，如果col<=7的话，继续本行的下一个，如果col=8的话，说明此行已遍历完毕，跳出for循环，返回到上一层，即n=3
+			b[n + col] = 1;
+			c[n - col + 7] = 1;
+			a[col] = 1;
+		}
+	}
+}
+
+int main()
+{
+	int i;
+	for (i = 0; i<8; ++i)
+		a[i] = 1;
+	for (i = 0; i<15; ++i)
+	{
+		b[i] = 1;
+		c[i] = 1;
+	}
+	PutQueen(0);
+	printf("八皇后摆法总数: %d\n", sum);
+	return 0;
+}

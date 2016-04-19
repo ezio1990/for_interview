@@ -1,0 +1,64 @@
+typedef struct node 
+{ 
+    char data; 
+    struct node *lchild,*rchild; 
+}BiNode; 
+
+Binode * CreatBiTree() 
+{ 
+    char a; 
+    BiNode* T; 
+    scanf("%c",&a); 
+    if(a==' ') 
+     T=NULL; 
+    else 
+     { 
+       T=(BiNode *)malloc(sizeof(BiNode)); 
+       T->data=a; 
+       T->lchild=CreatBiTree(); 
+       T->rchild=CreatBiTree(); 
+     } 
+     return T; 
+} 
+
+void PreOrderTraverse(BiNode* T) 
+{ 
+   if(T) 
+    { 
+     printf("%c",T->data); 
+
+       PreOrderTraverse(T->lchild); 
+
+       PreOrderTraverse(T->rchild); 
+     } 
+} 
+
+void InOrderTraverse(BiNode* T) 
+{ 
+     if(T) 
+       { 
+InOrderTraverse(T->lchild); 
+printf("%c",T->data); 
+InOrderTraverse(T->rchild); 
+       } 
+} 
+void PostOrderTraverse(BiNode* T) 
+{ 
+    if(T) 
+    { 
+        PostOrderTraverse(T->lchild); 
+        PostOrderTraverse(T->rchild); 
+        printf("%c",T->data); 
+    } 
+} 
+main() 
+{ 
+BiNode* T; 
+T=CreatBiTree(); 
+PreOrderTraverse(T); 
+printf("\n"); 
+InOrderTraverse(T); 
+printf("\n"); 
+PostOrderTraverse(T); 
+printf("\n"); 
+} 
